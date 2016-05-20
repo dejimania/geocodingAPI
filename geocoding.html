@@ -1,0 +1,99 @@
+ <!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<head>
+<style>
+	body {
+    font-size: 75%;
+    font-family:"Segoe UI", Verdana, Helvetica, Sans-Serif;
+	 background: #000000 top left; 
+	color: #FFFFFF;
+}
+#display_a {
+    clear: both;
+    margin: 0 auto;
+    max-width: 534px;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    margin-top: 0.75em;
+    border: 0 none;
+    margin-top:35px;
+}
+#body td {
+    padding:15px 30px 15px 10px;
+}
+#body tr td:nth-child(1) {
+    font-weight:bold;
+}
+#address {
+    width:400px;
+}
+</style>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+<script src="jquery.min.js"></script>
+<script>
+// The Google Geocoding API url used to get the JSON data
+var geocodingAPI = "http://maps.googleapis.com/maps/api/geocode/json?address=16 Herbert Macauley way, Yaba, Lagos Nigeria";
+
+$.getJSON(geocodingAPI, function (json) {
+
+    // Set the variables from the results array
+    var address = json.results[0].formatted_address;
+    console.log('Address : ', address);
+    
+    var latitude = json.results[0].geometry.location.lat;
+    console.log('Latitude : ', latitude);
+    
+    var longitude = json.results[0].geometry.location.lng;
+    console.log('Longitude : ', longitude);
+
+    // Set the table td text
+    $('#address').text(address);
+    $('#latitude').text(latitude);
+    $('#longitude').text(longitude);
+});
+
+// Caching the link jquery object
+var $myLink = $('a.myLink');
+
+// Set the links properties
+$myLink.prop({
+    href: geocodingAPI,
+    title: 'Click on this link to open in a new window.'
+}).click(function (e) {
+    e.preventDefault();
+    window.open(this.href, '_blank');
+});
+</script>
+</head>
+<body>
+<div id="display_a">
+    
+<h1>Parse JSON data using jQuery.getJSON()</h1>
+
+    <hr/>
+    <table border="1">
+        <tr>
+            <td>Url:</td>
+            <td><a class="myLink">The Google Geocoding API</a> 
+            </td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td id="address"></td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td id="latitude"></td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td id="longitude"></td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html> 
