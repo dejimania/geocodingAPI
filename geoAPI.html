@@ -1,0 +1,136 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Geocoding API</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+		<script src="http://maps.googleapis.com/maps/api/js"></script>
+		<script src="assets/js/jquery.min.js"></script>
+		<script>
+			
+			// The Google Geocoding API url used to get the JSON data
+		function getPosition() {
+			var geocodingAPI = "http://maps.googleapis.com/maps/api/geocode/json?address=" + document.getElementById("addr").value + "&sensor=true";
+
+			$.getJSON(geocodingAPI, function (json) {
+
+				document.getElementById("addr").value = "";
+
+				// Set the variables from the results array
+				var address = json.results[0].formatted_address;
+				console.log('Address : ', address);
+				
+				var latitude = json.results[0].geometry.location.lat;
+				console.log('Latitude : ', latitude);
+				
+				var longitude = json.results[0].geometry.location.lng;
+				console.log('Longitude : ', longitude);
+
+				// Set the table td text
+				$('#address').text(address);
+				$('#latitude').text(latitude);
+				$('#longitude').text(longitude);
+			});
+		}
+		// Caching the link jquery object
+		var $myLink = $('a.myLink');
+
+		// Set the links properties
+		$myLink.prop({
+			href: geocodingAPI,
+			title: 'Click on this link to open in a new window.'
+		}).click(function (e) {
+			e.preventDefault();
+			window.open(this.href, '_blank');
+		});
+		</script>
+	</head>
+	<body>
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<header id="header">
+					<h1 id="logo"><a href="index.html">Geocoding</a></h1>
+					
+				</header>
+			
+			<!-- Main -->
+				
+				<div id="main" class="wrapper style1">
+					<div class="container">
+						<header class="major">
+							<h2>Input Form</h2>
+							
+						</header>
+
+						<!-- Content -->
+							<section id="content">
+								<p>Please Enter your address Into the Input Field to get you Location</P>
+								<div class="in_form">
+								  <input type="text" id="addr"><br><br>
+								  <input type="button" value="Get" onclick="getPosition()"/>
+								  </form>
+								</div>
+							</section>
+
+					</div>
+				</div>
+				<div id="body">
+    
+<h1>Your Coordinate according to your Input</h1>
+
+    <hr/>
+    <table border="1">
+        <tr>
+            <td>Url:</td>
+            <td><a class="myLink">The Google Geocoding API</a> 
+            </td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td id="address"></td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td id="latitude"></td>
+        </tr>
+        <tr>
+            <td>Latitude:</td>
+            <td id="longitude"></td>
+        </tr>
+    </table>
+</div>
+
+			<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="#" class="icon alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon alt fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon alt fa-instagram"><span class="label">Instagram</span></a></li>
+						<li><a href="#" class="icon alt fa-github"><span class="label">GitHub</span></a></li>
+						<li><a href="#" class="icon alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; <a href="#">Kb Consults</a> 2015, All rights reserved.</li><li>Design by: <a href="http://kbconsults.net">Kamil Balogun</a></li>
+					</ul>
+				</footer>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
